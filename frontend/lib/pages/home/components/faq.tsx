@@ -18,7 +18,6 @@ import {
 } from "@chakra-ui/react";
 import type { ReactElement } from "react";
 import { FcAssistant, FcDonate, FcInTransit } from "react-icons/fc";
-import React from "react"
 
 interface FeatureProps {
   title: string;
@@ -81,7 +80,7 @@ export default function FAQ() {
             color="#6C0BA9"
             fontWeight="extrabold"
             lineHeight={2.2}
-            textAlign="center"
+            align="center"
             fontFamily="sans-serif"
             // textShadow="6px 3px 9px #6C0BA9"
             fontSize={useBreakpointValue({ base: "4xl", md: "6xl" })}

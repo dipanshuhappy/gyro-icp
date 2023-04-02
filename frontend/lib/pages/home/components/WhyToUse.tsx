@@ -12,7 +12,6 @@ import {
 } from "@chakra-ui/react";
 import type { ReactElement } from "react";
 import { FcAssistant, FcDonate, FcInTransit } from "react-icons/fc";
-import React from "react"
 
 interface FeatureProps {
   title: string;
@@ -76,7 +75,7 @@ export default function WhyToUse() {
             // color="whiteAlpha.800"
             fontWeight="bold"
             lineHeight={2.2}
-            textAlign="center"
+            align="center"
             fontFamily="sans-serif"
             // textShadow="6px 3px 9px #6C0BA9"
             fontSize={useBreakpointValue({ base: "2xl", md: "3xl" })}
