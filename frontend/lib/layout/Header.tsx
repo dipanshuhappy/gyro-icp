@@ -19,7 +19,6 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import type { ReactNode } from "react";
-import React from "react"
 
 const Links = ["Home", "How  it  Works", "How  to  Use", "About  Us"];
 
@@ -28,10 +27,12 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     px={2}
     py={1}
     rounded="md"
+    color="gray.300"
     _hover={{
       textDecoration: "none",
       fontSize: "xl",
       textShadow: "2px 2px 2px #6C0BA9",
+      color: "white",
       // bg: useColorModeValue("gray.200", "gray.700"),
     }}
     href="#"
@@ -72,7 +73,12 @@ export default function Header() {
           <Link onClick={toggleColorMode}>
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Link>
-          <Button variant="outline" colorScheme="#6C0BA9">
+          <Button
+            variant="outline"
+            colorScheme="#6C0BA9"
+            color="gray.300"
+            _hover={{ color: "white" }}
+          >
             Connect to Internet Computer
           </Button>
         </HStack>
