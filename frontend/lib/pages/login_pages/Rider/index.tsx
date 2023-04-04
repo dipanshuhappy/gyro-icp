@@ -18,6 +18,7 @@ import {
   import React from "react";
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+ 
   
   export default function RiderSignup() {
     const [showPassword, setShowPassword] = useState(false);
@@ -62,10 +63,10 @@ import {
                 </Box>
               </HStack>
 
-              <FormControl id="email" isRequired>
+              <FormControl id="number" isRequired>
               <VStack spacing={2} align="left">
-                <FormLabel >Email address</FormLabel>
-                <Input type="email" />
+                <FormLabel >Mobile Number</FormLabel>
+                <Input type="number" />
                 </VStack>
               </FormControl>
 
@@ -98,7 +99,7 @@ import {
                 <Button
                   loadingText="Submitting"
                   size="lg"
-                  bg={'blue.400'}
+                  bg={'whiteAlpha.700'}
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
