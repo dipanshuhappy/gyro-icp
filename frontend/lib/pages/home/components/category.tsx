@@ -1,5 +1,5 @@
 import { Link, Box, Heading, SimpleGrid } from "@chakra-ui/react";
-
+import React from "react"
 const ChooseOne = () => (
   <SimpleGrid
     columns={{ base: 1, md: 2 }}
@@ -50,5 +50,4 @@ const ChooseOne = () => (
     </Box>
   </SimpleGrid>
 );
-
 export default ChooseOne;

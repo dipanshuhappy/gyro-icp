@@ -19,6 +19,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import type { ReactNode } from "react";
+import React from "react"
 
 const Links = ["Home", "How  it  Works", "How  to  Use", "About  Us"];
 
@@ -27,12 +28,10 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     px={2}
     py={1}
     rounded="md"
-    color="gray.300"
     _hover={{
       textDecoration: "none",
       fontSize: "xl",
       textShadow: "2px 2px 2px #6C0BA9",
-      color: "white",
       // bg: useColorModeValue("gray.200", "gray.700"),
     }}
     href="#"
@@ -40,11 +39,9 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     {children}
   </Link>
 );
-
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
-
   return (
     <Box bg={useColorModeValue("#6C0BA9", "#6C0BA9")} px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
@@ -57,7 +54,6 @@ export default function Header() {
         />
         {/* <HStack spacing="96" alignItems="center"> */}
         <Avatar size="md" borderRadius="full" src="/assets/2.png" />
-
         <HStack
           as="nav"
           spacing={8}
@@ -73,17 +69,11 @@ export default function Header() {
           <Link onClick={toggleColorMode}>
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Link>
-          <Button
-            variant="outline"
-            colorScheme="#6C0BA9"
-            color="gray.300"
-            _hover={{ color: "white" }}
-          >
+          <Button variant="outline" colorScheme="#6C0BA9">
             Connect to Internet Computer
           </Button>
         </HStack>
       </Flex>
-
       {isOpen ? (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as="nav" spacing={4}>

@@ -10,6 +10,7 @@ import {
   Icon,
   useColorModeValue,
 } from "@chakra-ui/react";
+import React from "react"
 import type { ReactElement } from "react";
 import {
   //   IoAnalyticsSharp,
@@ -17,13 +18,12 @@ import {
   //   IoSearchSharp,
   BsHeartArrow,
 } from "react-icons/bs";
-
 interface FeatureProps {
   text: string;
   iconBg: string;
   icon?: ReactElement;
 }
-
+import internetComputer from "../../../../assets/internet-computer.jpg"
 const Feature = ({ text, icon, iconBg }: FeatureProps) => {
   return (
     <Stack direction="row" align="center">
@@ -41,7 +41,6 @@ const Feature = ({ text, icon, iconBg }: FeatureProps) => {
     </Stack>
   );
 };
-
 export default function OnChain100() {
   return (
     <Container maxW="6xl" py={12} marginTop="10">
@@ -84,7 +83,7 @@ export default function OnChain100() {
           <Image
             rounded="md"
             alt="feature image"
-            src="/assets/internet-computer.jpg"
+            src={internetComputer}
             objectFit="cover"
           />
         </Flex>

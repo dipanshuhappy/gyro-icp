@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import type { ReactElement } from "react";
 import { FcAssistant, FcDonate, FcInTransit } from "react-icons/fc";
+import React from "react"
 
 interface FeatureProps {
   title: string;
@@ -19,7 +20,6 @@ interface FeatureProps {
   icon: ReactElement;
   button: string;
 }
-
 const Feature = ({ title, text, icon, button }: FeatureProps) => {
   return (
     <Stack align="center">
@@ -65,7 +65,6 @@ const Feature = ({ title, text, icon, button }: FeatureProps) => {
     </Stack>
   );
 };
-
 export default function WhyToUse() {
   return (
     <Box p={10}>
@@ -75,14 +74,13 @@ export default function WhyToUse() {
             // color="whiteAlpha.800"
             fontWeight="bold"
             lineHeight={2.2}
-            align="center"
+            textAlign="center"
             fontFamily="sans-serif"
             // textShadow="6px 3px 9px #6C0BA9"
             fontSize={useBreakpointValue({ base: "2xl", md: "3xl" })}
           >
             Why to choose GYRO
           </Heading>
-
           <Text
             color="gray"
             fontWeight="normal"
@@ -96,7 +94,6 @@ export default function WhyToUse() {
             nonumy eirmod tempor invidunt ut labore...
           </Text>
         </VStack>
-
         <SimpleGrid
           columns={{ base: 1, md: 3 }}
           spacing={{ base: 14, md: 10 }}
