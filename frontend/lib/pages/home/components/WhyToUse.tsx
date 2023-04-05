@@ -20,7 +20,6 @@ interface FeatureProps {
   icon: ReactElement;
   button: string;
 }
-
 const Feature = ({ title, text, icon, button }: FeatureProps) => {
   return (
     <Stack align="center">
@@ -66,7 +65,6 @@ const Feature = ({ title, text, icon, button }: FeatureProps) => {
     </Stack>
   );
 };
-
 export default function WhyToUse() {
   return (
     <Box p={10}>
@@ -83,7 +81,6 @@ export default function WhyToUse() {
           >
             Why to choose GYRO
           </Heading>
-
           <Text
             color="gray"
             fontWeight="normal"
@@ -97,7 +94,6 @@ export default function WhyToUse() {
             nonumy eirmod tempor invidunt ut labore...
           </Text>
         </VStack>
-
         <SimpleGrid
           columns={{ base: 1, md: 3 }}
           spacing={{ base: 14, md: 10 }}

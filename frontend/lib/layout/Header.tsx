@@ -39,11 +39,9 @@ const NavLink = ({ children }: { children: ReactNode }) => (
     {children}
   </Link>
 );
-
 export default function Header() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
-
   return (
     <Box bg={useColorModeValue("#6C0BA9", "#6C0BA9")} px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
@@ -56,7 +54,6 @@ export default function Header() {
         />
         {/* <HStack spacing="96" alignItems="center"> */}
         <Avatar size="md" borderRadius="full" src="/assets/2.png" />
-
         <HStack
           as="nav"
           spacing={8}
@@ -77,7 +74,6 @@ export default function Header() {
           </Button>
         </HStack>
       </Flex>
-
       {isOpen ? (
         <Box pb={4} display={{ md: "none" }}>
           <Stack as="nav" spacing={4}>

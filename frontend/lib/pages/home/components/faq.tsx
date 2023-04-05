@@ -26,7 +26,6 @@ interface FeatureProps {
   icon: ReactElement;
   button: string;
 }
-
 const Feature = ({ title, text, icon, button }: FeatureProps) => {
   return (
     <Stack align="center">
@@ -71,7 +70,6 @@ const Feature = ({ title, text, icon, button }: FeatureProps) => {
     </Stack>
   );
 };
-
 export default function FAQ() {
   return (
     <Box p={10}>
@@ -88,7 +86,6 @@ export default function FAQ() {
           >
             Faq
           </Heading>
-
           <Text
             color="gray"
             fontWeight="normal"
@@ -119,7 +116,6 @@ export default function FAQ() {
               nisi ut aliquip ex ea commodo consequat.
             </AccordionPanel>
           </AccordionItem>
-
           <AccordionItem>
             <h2>
               <AccordionButton _expanded={{ bg: "#6C0BA9", color: "white" }}>
@@ -136,7 +132,6 @@ export default function FAQ() {
               nisi ut aliquip ex ea commodo consequat.
             </AccordionPanel>
           </AccordionItem>
-
           <AccordionItem>
             <h2>
               <AccordionButton _expanded={{ bg: "#6C0BA9", color: "white" }}>

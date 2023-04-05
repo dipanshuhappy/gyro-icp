@@ -18,7 +18,6 @@ import {
   //   IoSearchSharp,
   BsHeartArrow,
 } from "react-icons/bs";
-
 interface FeatureProps {
   text: string;
   iconBg: string;
@@ -42,7 +41,6 @@ const Feature = ({ text, icon, iconBg }: FeatureProps) => {
     </Stack>
   );
 };
-
 export default function OnChain100() {
   return (
     <Container maxW="6xl" py={12} marginTop="10">
