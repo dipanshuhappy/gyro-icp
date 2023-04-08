@@ -1,5 +1,5 @@
 import type { PathRouteProps } from "react-router-dom";
-import Home from "../pages/home";
+import Home from "../pages/landing_page";
 import DriverSignup from "../pages/login_pages/Driver";
 import RiderSignup from "../pages/login_pages/Rider";
 
