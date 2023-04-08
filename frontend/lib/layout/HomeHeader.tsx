@@ -21,7 +21,7 @@ import {
 import type { ReactNode } from "react";
 import React from "react"
 
-const Links = ["Home", "How  it  Works", "How  to  Use", "About  Us"];
+const Links = ["Gyro Specialities", "Gyro mobility", "Our Impact", "Help"];
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
