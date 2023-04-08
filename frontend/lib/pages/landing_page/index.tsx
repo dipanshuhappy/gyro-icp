@@ -12,7 +12,7 @@ import WhyToUse from "./components/WhyToUse";
 import ChooseOne from "./components/category";
 import LandingView from "./components/Landing_view";
 import React from "react"
-const Home = () => {
+const LandingPage = () => {
   return (
     <Grid>
       <Header />
@@ -25,4 +25,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default LandingPage;

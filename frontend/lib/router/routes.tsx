@@ -1,7 +1,8 @@
 import type { PathRouteProps } from "react-router-dom";
-import Home from "../pages/home";
+import LandingPage from "../pages/landing_page";
 import DriverSignup from "../pages/login_pages/Driver";
 import RiderSignup from "../pages/login_pages/Rider";
+import Home from "../pages/home_page";
 
 import React from "react"
 
@@ -9,7 +10,7 @@ import React from "react"
 export const routes: Array<PathRouteProps> = [
   {
     path: "/",
-    element: <Home />,
+    element: <LandingPage />,
   },
   {
     path: "/driversignup",
@@ -19,6 +20,10 @@ export const routes: Array<PathRouteProps> = [
     path: "/ridersignup",
     element: <RiderSignup />,
   },
+  {
+    path: "/Home",
+    element: <Home />
+  }
 ];
 
 export const privateRoutes: Array<PathRouteProps> = [];
