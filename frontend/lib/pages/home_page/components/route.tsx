@@ -1,8 +1,9 @@
-import { Box, Button, HStack, Input, InputGroup, InputLeftElement, List, ListItem, Text } from '@chakra-ui/react';
-import { SearchIcon } from '@chakra-ui/icons';
+import { Box, Button, Center, HStack, Input, InputGroup, InputLeftElement, List, ListIcon, ListItem, Stack, Text, useColorModeValue, Image, VStack, SimpleGrid } from '@chakra-ui/react';
+import { CheckIcon, SearchIcon } from '@chakra-ui/icons';
 
 import React from "react";
 import { useState, useEffect, useRef } from 'react';
+import internetComputer from "../../../../assets/internet-computer.jpg"
 
 interface Location {
     name: string;
@@ -67,8 +68,15 @@ const Route = () => {
   }, []);
 
   return (
+    <>
     <Box m={12} p={12}>
-        <HStack spacing="20">
+    <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          spacing={{ base: 14, md: 32 }}
+          alignContent={{base: "left", md: "center" }}
+          alignSelf={{base: "left", md: "center" }}
+          p={10}
+        >
       <InputGroup>
         <InputLeftElement pointerEvents="none">
           <SearchIcon color="gray.300" />
@@ -105,7 +113,7 @@ const Route = () => {
         <InputLeftElement pointerEvents="none">
           <SearchIcon color="gray.300" />
         </InputLeftElement>
-        <Input type="text" placeholder="Enter your current location" value={destination} onChange={handleDestinationChange} ref={destinationRef} />
+        <Input type="text" placeholder="Enter your destination" value={destination} onChange={handleDestinationChange} ref={destinationRef} />
       </InputGroup>
       {destinationSuggestions.length > 0 && (
         <Box borderWidth="1px" borderRadius="lg" overflow="hidden" position="absolute" left="0" right="0">
@@ -136,9 +144,126 @@ const Route = () => {
       <Button>
         Search Car
       </Button>
-      </HStack>
+      </SimpleGrid>
        </Box>
+       <Center py={6}>
+       <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          spacing={{ base: 14, md: 32 }}
+          p={10}
+        >
+      <Box
+        maxW={'330px'}
+        w={'full'}
+        bg={useColorModeValue('white', 'gray.800')}
+        rounded={"3xl"}
+        overflow={'hidden'}
+        >
+          <Image 
+          src={internetComputer}
+          />
+        <Box px={6} py={10}>
+          <VStack spacing={4} align="left">
+          <Text fontSize="32" fontWeight="bold">
+            Fair Fares
+          </Text>
+          <List spacing={3}>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              5.000 page views
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              50 automation executions
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              50 identified users
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              All features
+            </ListItem>
+          </List>
+          </VStack>
+        </Box>
+      </Box>
+      <Box
+        maxW={'330px'}
+        w={'full'}
+        bg={useColorModeValue('white', 'gray.800')}
+        rounded={"3xl"}
+        overflow={'hidden'}
+        >
+          <Image 
+          src={internetComputer}
+          />
+        <Box px={6} py={10}>
+          <VStack spacing={4} align="left">
+          <Text fontSize="32" fontWeight="bold">
+            Zero Convinience Fee
+          </Text>
+          <List spacing={3}>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              5.000 page views
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              50 automation executions
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              50 identified users
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              All features
+            </ListItem>
+          </List>
+          </VStack>
+        </Box>
+      </Box>
+      <Box
+        maxW={'330px'}
+        w={'full'}
+        bg={useColorModeValue('white', 'gray.800')}
+        // boxShadow={'2xl'}
+        rounded={"3xl"}
+        overflow={'hidden'}
+        >
+          <Image 
+          src={internetComputer}
+          />
+        <Box  px={6} py={10}>
+          <VStack spacing={4} align="left">
+          <Text fontSize="32" fontWeight="bold">
+            Peer - Peer
+          </Text>
+          <List spacing={3}>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              5.000 page views
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              50 automation executions
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              50 identified users
+            </ListItem>
+            <ListItem>
+              <ListIcon as={CheckIcon} color="green.400" />
+              All features
+            </ListItem>
+          </List>
+          </VStack>
+        </Box>
+      </Box>
+      </SimpleGrid>
+    </Center>
+    </>
     )
 }
-                
 export default Route;
