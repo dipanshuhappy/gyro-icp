@@ -174,15 +174,15 @@ const Route = () => {
             </ListItem>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              50 automation executions
+              point 1
             </ListItem>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              50 identified users
+              point 2
             </ListItem>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              All features
+              point 3
             </ListItem>
           </List>
           </VStack>
@@ -206,19 +206,15 @@ const Route = () => {
           <List spacing={3}>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              5.000 page views
+              point 1
             </ListItem>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              50 automation executions
+              point 2
             </ListItem>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              50 identified users
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color="green.400" />
-              All features
+              point 3
             </ListItem>
           </List>
           </VStack>
@@ -243,19 +239,15 @@ const Route = () => {
           <List spacing={3}>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              5.000 page views
+              point 1
             </ListItem>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              50 automation executions
+              point 2
             </ListItem>
             <ListItem>
               <ListIcon as={CheckIcon} color="green.400" />
-              50 identified users
-            </ListItem>
-            <ListItem>
-              <ListIcon as={CheckIcon} color="green.400" />
-              All features
+              point 3
             </ListItem>
           </List>
           </VStack>
