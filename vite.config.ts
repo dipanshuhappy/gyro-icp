@@ -5,6 +5,7 @@ import dfxJson from "./dfx.json"
 import fs from "fs"
 
 const isDev = process.env["DFX_NETWORK"] !== "ic"
+console.log("isDev", isDev)
 
 type Network = "ic" | "local"
 
@@ -22,7 +23,7 @@ try {
       .toString(),
   )
 } catch (e) {
-    console.error("\n⚠️  Before starting the dev server run: dfx deploy\n\n")
+  console.error("\n⚠️  Before starting the dev server run: dfx deploy\n\n")
 }
 
 // List of all aliases for canisters

@@ -10,7 +10,7 @@
 // /*
 //  * Import canister definitions like this:
 //  */
-// import * as counter from "../.dfx/local/canisters/counter"
+import * as counter from "../.dfx/local/canisters/counter"
 // /*
 //  * Some examples to get you started
 //  */
@@ -62,25 +62,46 @@
 //   </Connect2ICProvider>
 // )
 
-import { ChakraProvider } from "@chakra-ui/react";
-import { BrowserRouter as Router } from "react-router-dom";
-import Layout from "./lib/layout";
-import Routings from "./lib/router/Routings";
+import { ChakraProvider } from "@chakra-ui/react"
+import { BrowserRouter as Router } from "react-router-dom"
+import Layout from "./lib/layout"
+import Routings from "./lib/router/Routings"
 
 // import Layout from "lib/layout";
 // import Routings from "lib/router/Routings";
 // import { theme } from "lib/styles/theme";
 
 import React from "react"
-import { theme } from "./lib/styles/theme";
-const App = () => (
-  <ChakraProvider theme={theme}>
-    <Router>
-      <Layout>
-        <Routings />
-      </Layout>
-    </Router>
-  </ChakraProvider>
-);
+import { theme } from "./lib/styles/theme"
+import { createClient } from "@connect2ic/core"
+import { InternetIdentity } from "@connect2ic/core/providers"
+import { Connect2ICProvider, ConnectDialog } from "@connect2ic/react"
 
-export default App;
+const client = createClient({
+  canisters: {
+    counter,
+  },
+  providers: [
+    new InternetIdentity({
+      providerUrl: !import.meta.env.DEV
+        ? "https://identity.ic0.app/#authorize"
+        : "http://127.0.0.1:8000/?canisterId=rkp4c-7iaaa-aaaaa-aaaca-cai#authorize",
+    }),
+  ],
+})
+console.log("client dfx network", import.meta.env.DFX_NETWORK)
+const App = () => (
+  <>
+    <ChakraProvider theme={theme}>
+      <Router>
+        <Connect2ICProvider client={client}>
+          <Layout>
+            <Routings />
+          </Layout>
+        </Connect2ICProvider>
+      </Router>
+    </ChakraProvider>
+  </>
+)
+
+export default App

@@ -6,11 +6,16 @@ import {
   VStack,
   useBreakpointValue,
   SimpleGrid,
-} from "@chakra-ui/react";
-import React from "react";
+} from "@chakra-ui/react"
+import React from "react"
 import car from "../../../../assets/car.png"
+import { useConnect } from "@connect2ic/react"
+import GyroConnectButton from "../../../components/button/ConnectButton"
+import { useNavigate } from "react-router-dom"
 
 export default function LandingView() {
+  const { isConnected } = useConnect()
+  const navigate = useNavigate()
   return (
     <Flex
       backgroundImage={`url(${car})`}
@@ -66,8 +71,13 @@ export default function LandingView() {
                 // shadow: "2px 4px 5px #6C0BA9, 2px 4px 5px #6C0BA9",
                 boxShadow: "0px 1px 10px 2px #6C0BA9, 0 4px 4px 2px #6C0BA9",
               }}
+              onClick={() => {
+                if (isConnected) {
+                  navigate("/Home")
+                }
+              }}
             >
-              Connect to Internet Computer
+              {isConnected ? <Text>Go to Home</Text> : <GyroConnectButton />}
             </Button>
           </Stack>
           {/* <Text>
@@ -82,5 +92,5 @@ export default function LandingView() {
         </Stack>
       </VStack>
     </Flex>
-  );
+  )
 }

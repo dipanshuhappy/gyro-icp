@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons"
 import {
   Box,
   Flex,
@@ -17,11 +17,20 @@ import {
   useColorModeValue,
   Stack,
   useColorMode,
-} from "@chakra-ui/react";
-import type { ReactNode } from "react";
-import React from "react"
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+} from "@chakra-ui/react"
 
-const Links = ["Gyro Specialities", "Gyro mobility", "Our Impact", "Help"];
+import type { ReactNode } from "react"
+import React from "react"
+import GyroConnectButton from "../components/button/ConnectButton"
+import GyroAvatar from "../components/avatar/GyroAvatar"
+const Links = ["Gyro Specialities", "Gyro mobility", "Our Impact", "Help"]
 
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
@@ -38,10 +47,10 @@ const NavLink = ({ children }: { children: ReactNode }) => (
   >
     {children}
   </Link>
-);
+)
 export default function HomeHeader() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { colorMode, toggleColorMode } = useColorMode()
   return (
     <Box bg={useColorModeValue("#6C0BA9", "#6C0BA9")} px={4}>
       <Flex h={16} alignItems="center" justifyContent="space-between">
@@ -53,7 +62,7 @@ export default function HomeHeader() {
           onClick={isOpen ? onClose : onOpen}
         />
         {/* <HStack spacing="96" alignItems="center"> */}
-        <Avatar size="md" borderRadius="full" src="/assets/2.png" />
+        <GyroAvatar />
         <HStack
           as="nav"
           spacing={8}
@@ -69,9 +78,7 @@ export default function HomeHeader() {
           <Link onClick={toggleColorMode}>
             {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
           </Link>
-          <Button variant="outline" colorScheme="#6C0BA9">
-            Connect to Internet Computer
-          </Button>
+          <GyroConnectButton />
         </HStack>
       </Flex>
       {isOpen ? (
@@ -84,5 +91,5 @@ export default function HomeHeader() {
         </Box>
       ) : null}
     </Box>
-  );
+  )
 }
