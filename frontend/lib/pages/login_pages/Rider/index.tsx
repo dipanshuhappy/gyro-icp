@@ -14,16 +14,40 @@ import {
     useColorModeValue,
     Link,
     VStack,
+    Center,
   } from '@chakra-ui/react';
   import React from "react";
   import { useState } from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { User,Status,_SERVICE } from '.dfx/local/canisters/gyro/gyro.did';
+import GyroConnectButton from '../../../components/button/ConnectButton';
+import { useCanister, useClient, useConnect } from '@connect2ic/react';
+import { toast } from 'react-toastify';
+import Header from '../../../layout/Header';
+import { useNavigate } from 'react-router-dom';
  
   
   export default function RiderSignup() {
     const [showPassword, setShowPassword] = useState(false);
-  
+
+    const [user,setUser] = useState<User>({
+      email:"",
+      firstName:"",
+      lastName:"",
+      mobileNumber:"",
+      status:{ 'User' : null }  as  Status
+    });
+    const {isConnected,principal} = useConnect()
+    console.log({principal})
+    const [gyro ,{error,loading,canisterDefinition}]  = useCanister("gyro",{
+      mode:"connected"
+    })
+    const navigate = useNavigate()
     return (
+      <>
+      <Header/>
+      {
+      isConnected?
     <Box w="100%" h="100%" bgGradient="linear(to-l,  gray.700, #4F0079)">
       <Flex
         minH={'100vh'}
@@ -49,7 +73,13 @@ import {
                   <FormControl id="firstName" isRequired>
                   <VStack spacing={2} align="left">
                     <FormLabel >First Name</FormLabel>
-                    <Input type="text" placeholder="John" focusBorderColor='#ffff' />
+                    <Input 
+                    value={user.firstName} 
+                    onChange={(e)=>setUser({
+                      ...user,
+                      firstName:e.target.value
+                    })}
+                    type="text" placeholder="John" focusBorderColor='#ffff' />
                     </VStack>
                   </FormControl>
                 </Box>
@@ -57,7 +87,13 @@ import {
                   <FormControl id="lastName">
                   <VStack spacing={2} align="left">
                     <FormLabel >Last Name</FormLabel>
-                    <Input type="text" placeholder="Doe"/>
+                    <Input
+                    value={user.lastName} 
+                    onChange={(e)=>setUser({
+                      ...user,
+                      lastName:e.target.value
+                    })}
+                     type="text" placeholder="Doe"/>
                     </VStack>
                   </FormControl>
                 </Box>
@@ -66,34 +102,27 @@ import {
               <FormControl id="number" isRequired>
               <VStack spacing={2} align="left">
                 <FormLabel >Mobile Number</FormLabel>
-                <Input type="number" />
+                <Input value={user.mobileNumber} 
+                    onChange={(e)=>setUser({
+                      ...user,
+                      mobileNumber:e.target.value
+                    })} type="number" />
                 </VStack>
               </FormControl>
 
               <FormControl id="email" isRequired>
               <VStack spacing={2} align="left">
                 <FormLabel >Email address</FormLabel>
-                <Input type="email" />
+                <Input
+                value={user.email} 
+                onChange={(e)=>setUser({
+                  ...user,
+                  email:e.target.value
+                })} type="email" />
                 </VStack>
               </FormControl>
 
-              <FormControl id="password" isRequired>
-              <VStack spacing={2} align="left">
-                <FormLabel >Password</FormLabel>
-                <InputGroup>
-                  <Input type={showPassword ? 'text' : 'password'} />
-                  <InputRightElement h={'full'}>
-                    <Button
-                      variant={'ghost'}
-                      onClick={() =>
-                        setShowPassword((showPassword) => !showPassword)
-                      }>
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-                </VStack>
-              </FormControl>
+     
 
               <Stack spacing={10} pt={2}>
                 <Button
@@ -103,19 +132,36 @@ import {
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',
-                  }}>
+                  }}
+                  isLoading={loading}
+                  onClick={async ()=>{
+                   
+                    await  gyro.registerUser(user).then(()=>{
+                      toast("User Registered !!")
+                      navigate("/Home")
+                    }).catch((reason)=>{
+                      console.error(reason);
+                      toast("An Error Happended !!",{type:"error"})
+                    })
+                  }}
+                  >
                   Sign up
+
                 </Button>
               </Stack>
-              <Stack pt={6}>
+              {/* <Stack pt={6}>
                 <Text align={'center'}>
-                  Already a user? <Link color={'blue.400'}>Login</Link>
+                  Already a user? <GyroConnectButton/>
                 </Text>
-              </Stack>
+              </Stack> */}
             </Stack>
           </Box>
         </Stack>
       </Flex>
-      </Box>
+    </Box> : 
+    <Center width={"100%"} height={"100vh"}>
+      <GyroConnectButton/>
+    </Center>}
+    </>
     );
   }

@@ -5,6 +5,7 @@ import Array "mo:base/Array";
 import Map "mo:base/HashMap";
 import Principal "mo:base/Principal";
 import Option "mo:base/Option";
+import Debug "mo:base/Debug";
 
 // type UsersMap = AssocList.AssocList<Principal, User>;
 // type DriversMap = AssocList.AssocList<Principal, Driver>;
@@ -14,7 +15,6 @@ actor {
     type Status = { #Driver; #User };
     type User = {
         status : Status;
-        name : Text;
         firstName : Text;
         lastName : Text;
         email : Text;
@@ -30,17 +30,32 @@ actor {
 
     var drivers = Map.HashMap<Principal, User>(0, Principal.equal, Principal.hash);
 
+    private func boolToText(b : Bool) : Text {
+        if (b) {
+            "true"
+        } else {
+            "false"
+        }
+    };
+
     private func is_user_registered(principal : Principal) : Bool {
         Option.isSome(users.get(principal))
     };
 
     public shared ({ caller }) func registerUser(user : User) : async () {
+        Debug.print(debug_show (Principal.isAnonymous(caller)));
+        Debug.print(debug_show (boolToText(is_user_registered(caller)) # "This is the is userre"));
         assert not Principal.isAnonymous(caller);
-        assert not is_user_registered(caller);
+        assert false == is_user_registered(caller);
         users.put(caller, user)
     };
     public query ({ caller }) func getUserDetails() : async ?User {
+
+        Debug.print(debug_show (caller));
         users.get(caller)
+    };
+    public query func getUserDetailsFromPrincipalText(principalText : Text) : async ?User {
+        users.get(Principal.fromText(principalText))
     };
     public query ({ caller }) func whoami() : async Principal {
         return caller

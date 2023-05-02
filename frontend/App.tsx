@@ -10,7 +10,7 @@
 // /*
 //  * Import canister definitions like this:
 //  */
-import * as counter from "../.dfx/local/canisters/counter"
+import * as gyro from "../.dfx/local/canisters/gyro"
 // /*
 //  * Some examples to get you started
 //  */
@@ -76,20 +76,22 @@ import { theme } from "./lib/styles/theme"
 import { createClient } from "@connect2ic/core"
 import { InternetIdentity } from "@connect2ic/core/providers"
 import { Connect2ICProvider, ConnectDialog } from "@connect2ic/react"
-
+import { ToastContainer } from "react-toastify"
 const client = createClient({
   canisters: {
-    counter,
+    gyro,
   },
   providers: [
     new InternetIdentity({
       providerUrl: !import.meta.env.DEV
         ? "https://identity.ic0.app/#authorize"
-        : "http://127.0.0.1:8000/?canisterId=rkp4c-7iaaa-aaaaa-aaaca-cai#authorize",
+        : " http://127.0.0.1:8000/?canisterId=r7inp-6aaaa-aaaaa-aaabq-cai",
     }),
   ],
 })
+console.log(client.actors,"accotss")
 console.log("client dfx network", import.meta.env.DFX_NETWORK)
+
 const App = () => (
   <>
     <ChakraProvider theme={theme}>
@@ -97,10 +99,12 @@ const App = () => (
         <Connect2ICProvider client={client}>
           <Layout>
             <Routings />
+            
           </Layout>
         </Connect2ICProvider>
       </Router>
     </ChakraProvider>
+    <ToastContainer/>
   </>
 )
 
