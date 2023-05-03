@@ -95,8 +95,8 @@ export default function FAQ() {
             // textShadow="6px 3px 9px #6C0BA9"
             fontSize={useBreakpointValue({ base: "md", md: "md" })}
           >
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore...
+            Here are some common question asked by the Drivers and Riders. 
+            Please check those, it might clear your doubts.
           </Text>
         </VStack>
         <Accordion defaultIndex={[0]} allowMultiple>
@@ -104,16 +104,15 @@ export default function FAQ() {
             <h2>
               <AccordionButton _expanded={{ bg: "#6C0BA9", color: "white" }}>
                 <Box as="span" flex="1" textAlign="left">
-                  How it Differ from Existing Sofware.
+                 As a Driver why should i use your software Gyro
                 </Box>
                 <AccordionIcon />
               </AccordionButton>
             </h2>
             <AccordionPanel pb={4}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              we won't take cut from your earnings, In centralized softwares like
+              UBER and OLA they cut around 25 to 30 percent from your earnings.
+              So, this 25
             </AccordionPanel>
           </AccordionItem>
           <AccordionItem>

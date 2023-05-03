@@ -48,8 +48,10 @@ export default function OnChain100() {
         <Stack spacing={8}>
           <Heading>100% On-Chain Ride sharing Software</Heading>
           <Text color="gray.500" fontSize="lg">
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore.
+            Now you're on complete On-Chain, i mean you are completely decentralized.
+           Oops even this front-end also hosted on blockchain not in any centralized providers.
+           wan't to know how it's happening just check out this ICP(INTERNET COMPUTER PROTOCOL).
+           Thanks to ICP for providing this features.
           </Text>
           <Text color="blue.400" fontWeight={600} fontSize="sm">
             Here Some Key Features:
@@ -92,13 +94,13 @@ export default function OnChain100() {
         <Stack spacing={8}>
           <Heading fontSize="xxx-large">You're Now Decentralized</Heading>
           <Text color="gray.500" fontSize="lg">
-            ​​Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+          ICP has a protocol layer that enables shared computation.
+           This layer allows developers to build and deploy 
+           decentralized applications that can run directly on the ICP
+            network, without the need for any intermediary layers.
+             This enables a high degree of decentralization, 
+             as the applications are run by the nodes on the ICP network,
+              rather than by a centralized entity.
           </Text>
         </Stack>
       </SimpleGrid>
