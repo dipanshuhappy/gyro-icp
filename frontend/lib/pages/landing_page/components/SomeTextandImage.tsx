@@ -65,17 +65,17 @@ export default function OnChain100() {
             <Feature
               icon={<Icon as={BsHeartArrow} color="yellow.500" w={5} h={5} />}
               iconBg={useColorModeValue("yellow.100", "yellow.900")}
-              text="first here"
+              text="No need to pay, for using application"
             />
             <Feature
               icon={<Icon as={BsHeartArrow} color="green.500" w={5} h={5} />}
               iconBg={useColorModeValue("green.100", "green.900")}
-              text="second here"
+              text="No Comission"
             />
             <Feature
               icon={<Icon as={BsHeartArrow} color="purple.500" w={5} h={5} />}
               iconBg={useColorModeValue("purple.100", "purple.900")}
-              text="third here"
+              text="data security"
             />
           </Stack>
         </Stack>
