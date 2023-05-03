@@ -43,7 +43,7 @@ actor {
 
     var users = Map.HashMap<Principal, User>(0, Principal.equal, Principal.hash);
 
-    var drivers = Map.HashMap<Principal, User>(0, Principal.equal, Principal.hash);
+    var drivers = Map.HashMap<Principal, Driver>(0, Principal.equal, Principal.hash);
 
     var usersRide = List.nil<Ride>();
 
@@ -59,6 +59,10 @@ actor {
         Option.isSome(users.get(principal))
     };
 
+    private func is_driver_registered(principal : Principal) : Bool {
+        Option.isSome(drivers.get(principal))
+    };
+
     public shared ({ caller }) func registerUser(user : User) : async () {
         Debug.print(debug_show (Principal.isAnonymous(caller)));
         Debug.print(debug_show (boolToText(is_user_registered(caller)) # "This is the is userre"));
@@ -66,6 +70,15 @@ actor {
         assert false == is_user_registered(caller);
         users.put(caller, user)
     };
+
+    public shared ({ caller }) func registerDriver(driver : Driver) : async () {
+        Debug.print(debug_show (Principal.isAnonymous(caller)));
+        Debug.print(debug_show (boolToText(is_driver_registered(caller)) # "driver registered"));
+        assert not Principal.isAnonymous(caller);
+        assert false == is_driver_registered(caller);
+        drivers.put(caller, driver)
+    };
+
     public shared ({ caller }) func bookRide(ride : Ride) : async () {
         usersRide := List.push(ride, usersRide)
     };
