@@ -90,8 +90,11 @@ export default function WhyToUse() {
             // textShadow="6px 3px 9px #6C0BA9"
             fontSize={useBreakpointValue({ base: "md", md: "md" })}
           >
-            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-            nonumy eirmod tempor invidunt ut labore...
+            It  is completely decentralized, meaning that it operates without a central authority,
+             making it more secure and transparent compared to traditional centralized systems.
+             Also it offers Low-Transaction fee because it do not require
+             intermediaries to process the transactions.
+
           </Text>
         </VStack>
         <SimpleGrid
@@ -102,19 +105,19 @@ export default function WhyToUse() {
           <Feature
             icon={<Icon as={FcAssistant} w={10} h={10} />}
             title="How it Benefits Driver"
-            text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr,"
+            text="No more cuttings from fare."
             button="Read More"
           />
           <Feature
             icon={<Icon as={FcDonate} w={10} h={10} />}
             title="How it Benefits Passenger"
-            text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr,"
+            text="Reasonable fares and high privacy."
             button="Read More"
           />
           <Feature
             icon={<Icon as={FcInTransit} w={10} h={10} />}
             title="How to use it"
-            text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr,"
+            text="connect to IC, Signup and start your journey."
             button="Read More"
           />
         </SimpleGrid>
