@@ -89,22 +89,23 @@ const client = createClient({
     }),
   ],
 })
-console.log(client.actors,"accotss")
+console.log(client.actors, "accotss")
 console.log("client dfx network", import.meta.env.DFX_NETWORK)
 
 const App = () => (
   <>
     <ChakraProvider theme={theme}>
       <Router>
-        <Connect2ICProvider client={client}>
+        <Connect2ICProvider client={client} >
           <Layout>
             <Routings />
-            
+
           </Layout>
         </Connect2ICProvider>
       </Router>
+      <ToastContainer />
     </ChakraProvider>
-    <ToastContainer/>
+
   </>
 )
 

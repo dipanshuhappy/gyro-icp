@@ -15,194 +15,259 @@ import {
   Image,
   VStack,
   SimpleGrid,
+  Theme,
+  useColorMode,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+  Spinner,
 } from "@chakra-ui/react"
 import { CheckIcon, SearchIcon } from "@chakra-ui/icons"
 
 import React from "react"
 import { useState, useEffect, useRef } from "react"
-import internetComputer from "../../../../assets/internet-computer.jpg"
+import type { ThemeConfig } from "@chakra-ui/react";
 
-interface Location {
-  name: string
-  address: string
-}
+import internetComputer from "../../../../assets/internet-computer.jpg"
+import GooglePlacesAutocomplete, { geocodeByPlaceId } from "react-google-places-autocomplete"
+import { Ride } from ".dfx/local/canisters/gyro/gyro.did";
+import { DistanceMatrix, Location } from "../../../../types"
+import { FARE } from "../../../../const";
+
+import { useConnect } from "@connect2ic/react";
+
 
 const Route = () => {
   const [currentLocation, setCurrentLocation] = useState("")
-  const [currentLocationSuggestions, setCurrentLocationSuggestions] = useState<
-    Location[]
-  >([])
-  const [destination, setDestination] = useState("")
-  const [destinationSuggestions, setDestinationSuggestions] = useState<
-    Location[]
-  >([])
+  const { colorMode } = useColorMode()
+  const [pickUpLocation, setPickUpLocation] = useState<Location>();
+  console.log(JSON.stringify(pickUpLocation))
+  const [dropLocation, setDropLocation] = useState<Location>();
   const currentLocationRef = useRef<HTMLInputElement>(null)
   const destinationRef = useRef<HTMLInputElement>(null)
+  const [ride, setRide] = useState<Ride>()
+  const { principal } = useConnect()
+  const [loadingData, setLoadingData] = useState(false);
 
-  const handleCurrentLocationChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const value = event.target.value
-    setCurrentLocation(value)
 
-    // Fetch the locations based on the search text
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search/${value}?country=India&format=json`,
-    )
-    const locations = await response.json()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
-    // Map the response to the Location interface
-    const mappedLocations = locations.map((location: any) => ({
-      name: location.display_name.split(",")[0],
-      address: location.display_name,
-    }))
-
-    setCurrentLocationSuggestions(mappedLocations)
-  }
-
-  const handleDestinationChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const value = event.target.value
-    setDestination(value)
-
-    // Fetch the locations based on the search text
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/search/${value}?country=India&format=json`,
-    )
-    const locations = await response.json()
-
-    // Map the response to the Location interface
-    const mappedLocations = locations.map((location: any) => ({
-      name: location.display_name.split(",")[0],
-      address: location.display_name,
-    }))
-
-    setDestinationSuggestions(mappedLocations)
-  }
-
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        currentLocationRef.current &&
-        !currentLocationRef.current.contains(event.target as Node)
-      ) {
-        setCurrentLocationSuggestions([])
+  function calcuateAndDisplayRoute(directionsService: google.maps.DirectionsService, directionsDisplay: google.maps.DirectionsRenderer, pointA: google.maps.LatLng, pointB: google.maps.LatLng) {
+    directionsService.route({
+      origin: pointA,
+      destination: pointB,
+      travelMode: google.maps.TravelMode.DRIVING
+    }, function (response, status) {
+      if (status == google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
       }
-      if (
-        destinationRef.current &&
-        !destinationRef.current.contains(event.target as Node)
-      ) {
-        setDestinationSuggestions([])
-      }
-    }
-    document.addEventListener("mousedown", handleOutsideClick)
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick)
-    }
-  }, [])
+    });
+  }
 
   return (
     <>
-      <Box m={12} p={12}>
+      <Box m={8} >
         <SimpleGrid
+
           columns={{ base: 1, md: 3 }}
           spacing={{ base: 14, md: 32 }}
           alignContent={{ base: "left", md: "center" }}
           alignSelf={{ base: "left", md: "center" }}
-          p={10}
+
         >
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <SearchIcon color="gray.300" />
-            </InputLeftElement>
-            <Input
-              type="text"
-              placeholder="Enter your current location"
-              value={currentLocation}
-              onChange={handleCurrentLocationChange}
-              ref={currentLocationRef}
-            />
-          </InputGroup>
-          {currentLocationSuggestions.length > 0 && (
-            <Box
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              position="absolute"
-              left="0"
-              right="0"
-            >
-              <List>
-                {currentLocationSuggestions.map((location, index) => (
-                  <ListItem
-                    key={index}
-                    cursor="pointer"
-                    px={4}
-                    py={2}
-                    _hover={{ bg: "gray.100" }}
-                    onClick={() => {
-                      setCurrentLocation(location.name)
-                      setCurrentLocationSuggestions([])
-                    }}
-                  >
-                    <Text fontSize="sm" fontWeight="bold">
-                      {location.name}
-                    </Text>
-                    <Text fontSize="xs" color="gray.500">
-                      {location.address}
-                    </Text>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          )}
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <SearchIcon color="gray.300" />
-            </InputLeftElement>
-            <Input
-              type="text"
-              placeholder="Enter your destination"
-              value={destination}
-              onChange={handleDestinationChange}
-              ref={destinationRef}
-            />
-          </InputGroup>
-          {destinationSuggestions.length > 0 && (
-            <Box
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              position="absolute"
-              left="0"
-              right="0"
-            >
-              <List>
-                {destinationSuggestions.map((location, index) => (
-                  <ListItem
-                    key={index}
-                    cursor="pointer"
-                    px={4}
-                    py={2}
-                    _hover={{ bg: "gray.100" }}
-                    onClick={() => {
-                      setDestination(location.address)
-                      setDestinationSuggestions([])
-                    }}
-                  >
-                    <Text fontSize="sm" fontWeight="bold">
-                      {location.name}
-                    </Text>
-                    <Text fontSize="xs" color="gray.500">
-                      {location.address}
-                    </Text>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          )}
-          <Button>Search Car</Button>
+
+          <GooglePlacesAutocomplete apiKey="AIzaSyBcf-4VVw3jUW0rBTGH8d4IWMhzxppEhKk"
+            autocompletionRequest={{
+              componentRestrictions: {
+                country: ['in']
+              }
+            }}
+            selectProps={{
+              theme(theme) {
+                return {
+                  borderRadius: 4,
+                  colors: {
+                    ...theme.colors,
+
+                    neutral0: colorMode == "dark" ? "#0033" : "fff",
+
+                  },
+                  spacing: theme.spacing
+                }
+              },
+              onChange: (value) => setPickUpLocation(value),
+              value: pickUpLocation,
+              styles: {
+                menu() {
+                  return {
+                    backgroundColor: "purple"
+                  }
+                },
+                input() {
+                  return {
+                    color: colorMode == "dark" ? "#fff" : "#000",
+                  }
+                },
+                placeholder() {
+                  return {
+                    color: colorMode == "dark" ? "#fff" : "#000",
+                  }
+                },
+                singleValue() {
+                  return {
+                    color: colorMode == "dark" ? "#fff" : "#000",
+                  }
+                },
+                menuPortal() {
+                  return {
+                    backgroundColor: "black"
+                  }
+                }
+              },
+
+
+            }}
+          />
+
+
+
+
+          <GooglePlacesAutocomplete apiKey="AIzaSyBcf-4VVw3jUW0rBTGH8d4IWMhzxppEhKk"
+            autocompletionRequest={{
+              componentRestrictions: {
+                country: ['in']
+              }
+            }}
+            selectProps={{
+              theme(theme) {
+                return {
+                  borderRadius: 4,
+                  colors: {
+                    ...theme.colors,
+
+                    neutral0: colorMode == "dark" ? "#0033" : "fff",
+
+                  },
+                  spacing: theme.spacing
+                }
+              },
+              onChange: (value) => setDropLocation(value),
+              value: dropLocation,
+              styles: {
+                menu() {
+                  return {
+                    backgroundColor: "purple"
+                  }
+                },
+                input() {
+                  return {
+                    color: colorMode == "dark" ? "#fff" : "#000",
+                  }
+                },
+                placeholder() {
+                  return {
+                    color: colorMode == "dark" ? "#fff" : "#000",
+                  }
+                },
+                singleValue() {
+                  return {
+                    color: colorMode == "dark" ? "#fff" : "#000",
+                  }
+                },
+                menuPortal() {
+                  return {
+                    backgroundColor: "black"
+                  }
+                }
+              },
+            }}
+          />
+
+
+
+          <Button onClick={async () => {
+            setLoadingData(true)
+            const pickUpGeoDatas = await geocodeByPlaceId(
+              pickUpLocation.value.place_id
+            )
+            const dropGeoDatas = await geocodeByPlaceId(
+              dropLocation.value.place_id
+            );
+
+
+            const distanceRes = await fetch(`https://maps.googleapis.com/maps/api/distancematrix/json?origins=${pickUpGeoDatas[0].formatted_address}&destinations=${dropGeoDatas[0].formatted_address}&key=AIzaSyBcf-4VVw3jUW0rBTGH8d4IWMhzxppEhKk`)
+            const distance: DistanceMatrix = await distanceRes.json()
+            const pointA = new google.maps.LatLng(
+              pickUpGeoDatas[0].geometry.location.lat(),
+              pickUpGeoDatas[0].geometry.location.lng()
+            );
+            const pointB = new google.maps.LatLng(
+              dropGeoDatas[0].geometry.location.lat(),
+              dropGeoDatas[0].geometry.location.lng()
+            );
+            let mapOptions = {
+              zoom: 7,
+              center: pointA
+            }
+            let map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
+            let directionService = new google.maps.DirectionsService();
+            let directionDisplay = new google.maps.DirectionsRenderer({ map: map })
+            let fare = FARE;
+            calcuateAndDisplayRoute(directionService, directionDisplay, pointA, pointB)
+
+            setRide({
+              distance: BigInt(distance.rows[0].elements[0].distance.value),
+              dropLocation: dropLocation.label.toString(),
+              pickUpLocation: pickUpLocation.label.toString(),
+              fare: fare,
+              user: principal,
+              pickUpLocationCoordinates: {
+                latitude: pickUpGeoDatas[0].geometry.location.lat().toString(),
+                longitude: pickUpGeoDatas[0].geometry.location.lng().toString(),
+              },
+              dropLocationCoordinates: {
+                latitude: dropGeoDatas[0].geometry.location.lat().toString(),
+                longitude: dropGeoDatas[0].geometry.location.lng().toString()
+              }
+            })
+            setLoadingData(false)
+            onOpen()
+          }} isLoading={loadingData}>Search Car</Button>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Modal Title</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                {ride ? <> <Text fontSize='2xl'> From {ride.pickUpLocation}</Text>
+                  <Center><Text fontSize={'3xl'}> To </Text></Center>
+                  <Text fontSize={'2xl'}>To {ride.dropLocation}</Text>
+                  <Text fontSize={'xl'}>
+                    With Distance {ride.distance.toString()}
+                    And Fare <Text color={"red"}>{ride.fare.toString()} ICP </Text>
+                  </Text>
+                  <div id="map-canvas" style={{
+                    width: "100px",
+                    height: "100px"
+                  }}></div></> : <Spinner size={"lg"} />}
+
+              </ModalBody>
+
+              <ModalFooter>
+                <Button colorScheme='blue' mr={3} onClick={onClose}>
+                  Close
+                </Button>
+                <Button variant='ghost' color={"green"}>Confirm</Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
         </SimpleGrid>
       </Box>
       <Center py={6}>

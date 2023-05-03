@@ -5,6 +5,7 @@ import RiderSignup from "../pages/login_pages/Rider";
 import Home from "../pages/home_page";
 
 import React from "react"
+import DriverHomeScreen from "../pages/driver_home";
 
 
 export const routes: Array<PathRouteProps> = [
@@ -23,6 +24,10 @@ export const routes: Array<PathRouteProps> = [
   {
     path: "/Home",
     element: <Home />
+  },
+  {
+    path:"/driver_home",
+    element:<DriverHomeScreen/>
   }
 ];
 

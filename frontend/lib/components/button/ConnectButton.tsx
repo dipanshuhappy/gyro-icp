@@ -24,7 +24,7 @@ import {
 import React, { useCallback } from "react"
 import { User } from ".dfx/local/canisters/gyro/gyro.did"
 import { Router, useNavigate } from "react-router-dom"
-import {  useUserStore } from "../../stores/users"
+import { useUserStore } from "../../stores/users"
 import { isObjectEmpty } from "../../../utils"
 
 function GyroConnectButton() {
@@ -34,53 +34,54 @@ function GyroConnectButton() {
     onClose: onConnectClose,
   } = useDisclosure()
   const { isConnected, principal, disconnect } = useConnect()
-  const [gyro,{loading,error}] = useCanister("gyro",{
-    mode:"connected"
+  const [gyro, { loading, error }] = useCanister("gyro", {
+    mode: "connected"
   })
-  const setUser = useUserStore(state=>state.setUser)
-  const onConnect =  async () => {
-    console.log({principal},"this is the principal in connect button")
-    const user: any  = await gyro.getUserDetailsFromPrincipalText(principal.toString());
-    console.log({user},"this is the user")
-    
-    if(!user || user?.length==0){
-        navigate("/ridersignup")
+  const setUser = useUserStore(state => state.setUser)
+  const onConnect = async () => {
+    console.log({ principal }, "this is the principal in connect button")
+    const user: any = await gyro.getUserDetailsFromPrincipalText(principal);
+    console.log({ user }, "this is the user")
+
+    if (!user || user?.length == 0) {
+      navigate("/ridersignup")
     }
     setUser(user[0] as User)
     navigate("/Home")
   }
-  const users = useUserStore((state)=>state.user)
-  const isUserLoggedIn = useUserStore(useCallback((state)=>!isObjectEmpty(state.user),[users]))
-  console.log({users})
-  console.log({isUserLoggedIn})
+  const users = useUserStore((state) => state.user)
+  const isUserLoggedIn = useUserStore(useCallback((state) => !isObjectEmpty(state.user), [users]))
+  console.log({ users })
+  console.log({ isUserLoggedIn })
 
-  const navigate = useNavigate() 
+
+  const navigate = useNavigate()
   return (
     <>
       {isConnected ? (
         isUserLoggedIn ? (
-        <Menu>
-          <MenuButton as={Button} rightIcon={<AiOutlineWallet />}>
-            {String(principal).slice(0, 5)}...{String(principal).slice(5, 18)}
-          </MenuButton>
-          <MenuList>
-            <MenuItem onClick={disconnect}>Log out </MenuItem>
-          </MenuList>
-        </Menu>) : (
-         
-           <Menu>
-           <MenuButton as={Button} onClick={()=>{
-          navigate("/ridersignup")
-         }}>
-             Sign Up to User
-           </MenuButton>
-           <MenuList>
-             <MenuItem onClick={disconnect}>Log out </MenuItem>
-           </MenuList>
-         </Menu>
+          <Menu>
+            <MenuButton as={Button} rightIcon={<AiOutlineWallet />}>
+              {String(principal).slice(0, 5)}...{String(principal).slice(5, 18)}
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={disconnect}>Log out </MenuItem>
+            </MenuList>
+          </Menu>) : (
+
+          <Menu>
+            <MenuButton as={Button} onClick={() => {
+              navigate("/ridersignup")
+            }}>
+              Sign Up to User
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={disconnect}>Log out </MenuItem>
+            </MenuList>
+          </Menu>
         )
       ) : (
-        
+
         <Button onClick={onConnectOpen}>
           <ConnectToIcButton
             onConnect={onConnect}

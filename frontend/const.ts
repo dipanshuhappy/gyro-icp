@@ -1,0 +1,1 @@
+export const FARE = 0.000001

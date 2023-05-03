@@ -6,12 +6,27 @@ import Map "mo:base/HashMap";
 import Principal "mo:base/Principal";
 import Option "mo:base/Option";
 import Debug "mo:base/Debug";
+import Float "mo:base/Float";
+import Text "mo:base/Text";
 
 // type UsersMap = AssocList.AssocList<Principal, User>;
 // type DriversMap = AssocList.AssocList<Principal, Driver>;
 
 actor {
+    type Coordinates = {
+        latitude : Text;
+        longitude : Text
+    };
+    type Ride = {
+        pickUpLocation : Text;
+        dropLocation : Text;
+        pickUpLocationCoordinates : Coordinates;
+        dropLocationCoordinates : Coordinates;
+        distance : Nat;
+        fare : Float;
+        user : ?Principal;
 
+    };
     type Status = { #Driver; #User };
     type User = {
         status : Status;
@@ -29,6 +44,8 @@ actor {
     var users = Map.HashMap<Principal, User>(0, Principal.equal, Principal.hash);
 
     var drivers = Map.HashMap<Principal, User>(0, Principal.equal, Principal.hash);
+
+    var usersRide = List.nil<Ride>();
 
     private func boolToText(b : Bool) : Text {
         if (b) {
@@ -48,6 +65,9 @@ actor {
         assert not Principal.isAnonymous(caller);
         assert false == is_user_registered(caller);
         users.put(caller, user)
+    };
+    public shared ({ caller }) func bookRide(ride : Ride) : async () {
+        usersRide := List.push(ride, usersRide)
     };
     public query ({ caller }) func getUserDetails() : async ?User {
 
