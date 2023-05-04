@@ -11,8 +11,9 @@ import OnChain100 from "./components/SomeTextandImage";
 import WhyToUse from "./components/WhyToUse";
 import ChooseOne from "./components/category";
 import LandingView from "./components/Landing_view";
-import React from "react"
+import React, { useEffect } from "react"
 const LandingPage = () => {
+
   return (
     <Grid>
       <Header />

@@ -40,7 +40,7 @@ export default function RiderSignup() {
   const { isConnected, principal } = useConnect()
   console.log({ principal })
   const [gyro, { error, loading, canisterDefinition }] = useCanister("gyro", {
-    mode: "connected"
+    mode: "anonymous"
   })
 
   const navigate = useNavigate()
@@ -137,7 +137,7 @@ export default function RiderSignup() {
                         isLoading={loading}
                         onClick={async () => {
 
-                          await gyro.registerUser(user).then(() => {
+                          await gyro.registerUser(user, principal).then(() => {
                             toast("User Registered !!")
                             navigate("/Home")
                           }).catch((reason) => {

@@ -74,7 +74,7 @@ import Routings from "./lib/router/Routings"
 import React from "react"
 import { theme } from "./lib/styles/theme"
 import { createClient } from "@connect2ic/core"
-import { InternetIdentity } from "@connect2ic/core/providers"
+import { InternetIdentity, NFID } from "@connect2ic/core/providers"
 import { Connect2ICProvider, ConnectDialog } from "@connect2ic/react"
 import { ToastContainer } from "react-toastify"
 const client = createClient({
@@ -82,11 +82,9 @@ const client = createClient({
     gyro,
   },
   providers: [
-    new InternetIdentity({
-      providerUrl: !import.meta.env.DEV
-        ? "https://identity.ic0.app/#authorize"
-        : " http://127.0.0.1:8000/?canisterId=r7inp-6aaaa-aaaaa-aaabq-cai",
-    }),
+    new NFID({
+      appName: "Gyro"
+    })
   ],
 })
 console.log(client.actors, "accotss")

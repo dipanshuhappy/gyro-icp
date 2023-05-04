@@ -21,7 +21,7 @@ import {
   useConnect,
   useCanister,
 } from "@connect2ic/react"
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect } from "react"
 import { User } from ".dfx/local/canisters/gyro/gyro.did"
 import { Router, useNavigate } from "react-router-dom"
 import { useUserStore } from "../../stores/users"
@@ -35,9 +35,11 @@ function GyroConnectButton() {
   } = useDisclosure()
   const { isConnected, principal, disconnect } = useConnect()
   const [gyro, { loading, error }] = useCanister("gyro", {
-    mode: "connected"
+    mode: "anonymous"
   })
+
   const setUser = useUserStore(state => state.setUser)
+  console.log({ principal }, "in connect")
   const onConnect = async () => {
     console.log({ principal }, "this is the principal in connect button")
     const user: any = await gyro.getUserDetailsFromPrincipalText(principal);
