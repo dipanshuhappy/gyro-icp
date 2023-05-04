@@ -63,7 +63,8 @@ actor {
         Option.isSome(drivers.get(principal))
     };
 
-    public shared ({ caller }) func registerUser(user : User) : async () {
+    public shared func registerUser(user : User, userId : Text) : async () {
+        let caller = Principal.fromText(userId);
         Debug.print(debug_show (Principal.isAnonymous(caller)));
         Debug.print(debug_show (boolToText(is_user_registered(caller)) # "This is the is userre"));
         assert not Principal.isAnonymous(caller);
@@ -71,7 +72,8 @@ actor {
         users.put(caller, user)
     };
 
-    public shared ({ caller }) func registerDriver(driver : Driver) : async () {
+    public shared func registerDriver(driver : Driver, userId : Text) : async () {
+        let caller = Principal.fromText(userId);
         Debug.print(debug_show (Principal.isAnonymous(caller)));
         Debug.print(debug_show (boolToText(is_driver_registered(caller)) # "driver registered"));
         assert not Principal.isAnonymous(caller);
