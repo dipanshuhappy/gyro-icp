@@ -1,0 +1,42 @@
+type User = 
+ record {
+   email: text;
+   firstName: text;
+   lastName: text;
+   mobileNumber: text;
+   status: Status;
+ };
+type Status = 
+ variant {
+   Driver;
+   User;
+ };
+type Ride = 
+ record {
+   distance: nat;
+   dropLocation: text;
+   dropLocationCoordinates: Coordinates;
+   fare: float64;
+   pickUpLocation: text;
+   pickUpLocationCoordinates: Coordinates;
+   user: opt principal;
+ };
+type Driver = 
+ record {
+   car: text;
+   driverLicense: text;
+   vehicleLicense: text;
+ };
+type Coordinates = 
+ record {
+   latitude: text;
+   longitude: text;
+ };
+service : {
+  bookRide: (Ride) -> ();
+  getUserDetails: () -> (opt User) query;
+  getUserDetailsFromPrincipalText: (text) -> (opt User) query;
+  registerDriver: (Driver, text) -> ();
+  registerUser: (User, text) -> ();
+  whoami: () -> (principal) query;
+}
