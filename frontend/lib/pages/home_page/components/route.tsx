@@ -39,7 +39,7 @@ import { Ride } from ".dfx/local/canisters/gyro/gyro.did";
 import { DistanceMatrix, Location } from "../../../../types"
 import { FARE } from "../../../../const";
 
-import { useConnect } from "@connect2ic/react";
+import { useCanister, useConnect } from "@connect2ic/react";
 
 
 const Route = () => {
@@ -56,6 +56,10 @@ const Route = () => {
 
 
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [gyro] = useCanister("gyro", {
+    mode: "anonymous"
+  })
+
 
   function calcuateAndDisplayRoute(directionsService: google.maps.DirectionsService, directionsDisplay: google.maps.DirectionsRenderer, pointA: google.maps.LatLng, pointB: google.maps.LatLng) {
     directionsService.route({
@@ -71,6 +75,12 @@ const Route = () => {
     });
   }
   const mapRef = useRef()
+  const confirmRide = () => {
+    setRide({
+      ...ride,
+
+    })
+  }
 
   return (
     <>
@@ -275,7 +285,7 @@ const Route = () => {
                 <Button colorScheme='blue' mr={3} onClick={onClose}>
                   Close
                 </Button>
-                <Button variant='ghost' color={"green"}>Confirm</Button>
+                <Button variant='ghost' color={"green"} onClick={confirmRide}>Confirm</Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
